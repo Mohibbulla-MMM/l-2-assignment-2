@@ -19,7 +19,52 @@ const createOrder = async (req: Request, res: Response) => {
       data: result,
     });
   } catch (err: any) {
-    console.log(`create product controllers error :>- ${err}`);
+    console.log(`create order controllers error :>- ${err}`);
+    // error send
+    res.status(500).json({
+      success: false,
+      message: err.message || "Something went wrong!",
+      data: err,
+    });
+  }
+};
+// get all order
+const getAllOrders = async (req: Request, res: Response) => {
+  try {
+    // data send order services>fn
+    const result = await OrderServices.getAllOrders();
+    // response send
+    res.status(200).json({
+      success: true,
+      message: "All Orders fetched successfully",
+      data: result,
+    });
+    // TODO order not found if logic and send not found message
+  } catch (err: any) {
+    console.log(`find Order controllers error :>- ${err}`);
+    // error send
+    res.status(500).json({
+      success: false,
+      message: err.message || "Something went wrong!",
+      data: err,
+    });
+  }
+};
+// get all order
+const getOrdersByUserEmail = async (req: Request, res: Response) => {
+  try {
+    // data send order services>fn
+    const { email } = req.query;
+    const result = await OrderServices.getOrdersByUserEmail(email as string);
+    // response send
+    res.status(200).json({
+      success: true,
+      message: "Orders fetched successfully for user email!",
+      data: result,
+    });
+    // TODO order not found if logic and send not found message
+  } catch (err: any) {
+    console.log(`order get by user email controllers error :>- ${err}`);
     // error send
     res.status(500).json({
       success: false,
@@ -31,4 +76,6 @@ const createOrder = async (req: Request, res: Response) => {
 
 export const OrderControllers = {
   createOrder,
+  getAllOrders,
+  getOrdersByUserEmail
 };
