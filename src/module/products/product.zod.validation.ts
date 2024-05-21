@@ -1,6 +1,5 @@
 import { z } from "zod";
-import { errorUtil } from "zod/lib/helpers/errorUtil";
-import errorMap from "zod/lib/locales/en";
+
 
 // Define the Zod schema for product variants
 const productVariantsZodValidation = z.object({

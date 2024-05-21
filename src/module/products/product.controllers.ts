@@ -2,6 +2,7 @@ import { Request, Response } from "express";
 import { ProductService } from "./product.services";
 import { ProductZodValidation } from "./product.zod.validation";
 
+// create product / insert product
 const createProduct = async (req: Request, res: Response) => {
   try {
     // product data get form request body
@@ -22,7 +23,7 @@ const createProduct = async (req: Request, res: Response) => {
   } catch (err: any) {
     console.log(`Create product controllers error :>- ${err}`);
     //  response send
-    res.status(200).json({
+    res.status(500).json({
       success: false,
       message: err.message || "Something went wrong!",
       error: err,
@@ -30,4 +31,51 @@ const createProduct = async (req: Request, res: Response) => {
   }
 };
 
-export const ProductControllers = { createProduct };
+// get/fetched all  product
+const getAllProduct = async (req: Request, res: Response) => {
+  try {
+    const result = await ProductService.getAllProduct();
+    //  response send
+    res.status(200).json({
+      success: false,
+      message: "Products fetched successfully!",
+      data: result,
+    });
+  } catch (err: any) {
+    console.log(`Get/fetched product controllers error :>- ${err}`);
+    //  response send
+    res.status(500).json({
+      success: false,
+      message: err.message || "Something went wrong!",
+      error: err,
+    });
+  }
+};
+
+//get/fing all product
+const findProductById = async (req: Request, res: Response) => {
+  try {
+    const { productId } = req.params;
+    const result = await ProductService.findProductById(productId);
+    //  response send
+    res.status(200).json({
+      success: false,
+      message: "Single Products fetched successfully!",
+      data: result,
+    });
+  } catch (err: any) {
+    console.log(`Get/fetched product by id controllers error :>- ${err}`);
+    //  response send
+    res.status(500).json({
+      success: false,
+      message: err.message || "Something went wrong!",
+      error: err,
+    });
+  }
+};
+
+export const ProductControllers = {
+  createProduct,
+  getAllProduct,
+  findProductById,
+};
