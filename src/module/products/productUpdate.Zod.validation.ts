@@ -47,6 +47,7 @@ const ProductUpdateZodValidation = z.object({
   price: z
     .number()
     .int()
+    .nonnegative()
     .lte(99999999999, "Price is very long number")
     .optional(),
 

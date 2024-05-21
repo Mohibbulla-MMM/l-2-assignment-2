@@ -33,15 +33,36 @@ const createProduct = async (req: Request, res: Response) => {
 };
 
 // get/fetched all  product
-const getAllProduct = async (req: Request, res: Response) => {
+const getAllProductOrQueryAnyString = async (req: Request, res: Response) => {
   try {
-    const result = await ProductService.getAllProduct();
-    //  response send
-    res.status(200).json({
-      success: true,
-      message: "All Products fetched successfully!",
-      data: result,
-    });
+    const { searchTerm } = req.query;
+    const result = await ProductService.getAllProductOrQueryAnyString(
+      searchTerm as string
+    );
+    if (searchTerm) {
+      if (result.length === 0) {
+        //  response send
+        res.status(200).json({
+          success: true,
+          message: `Search term '${searchTerm}' matching product not found `,
+          data: result,
+        });
+      } else {
+        //  response send
+        res.status(200).json({
+          success: true,
+          message: `Products matching search term '${searchTerm}' fetched successfully!`,
+          data: result,
+        });
+      }
+    } else {
+      //  response send
+      res.status(200).json({
+        success: true,
+        message: "All Products fetched successfully!",
+        data: result,
+      });
+    }
   } catch (err: any) {
     console.log(`Get/fetched product controllers error :>- ${err}`);
     //  response send
@@ -125,46 +146,44 @@ const putProductById = async (req: Request, res: Response) => {
   }
 };
 
-// search a product by any string
-const serchProductByAnyString = async (req: Request, res: Response) => {
-  try {
-    const { searchTerm } = req.query;
-    console.log({ searchTerm });
-    const result = await ProductService.serchProductByAnyString(
-      searchTerm as string
-    );
-    // result  checking
-    if (result.length === 0) {
-      //  response send
-      res.status(200).json({
-        success: true,
-        message: `Search term '${searchTerm}' matching product not found `,
-        data: result,
-      });
-    } else {
-      //  response send
-      res.status(200).json({
-        success: true,
-        message: `Products matching search term '${searchTerm}' fetched successfully!`,
-        data: result,
-      });
-    }
-  } catch (err: any) {
-    console.log(`Serach product by any string controllers error :>- ${err}`);
-    //  response send
-    res.status(500).json({
-      success: false,
-      message: err.message || "Something went wrong!",
-      error: err,
-    });
-  }
-};
-
 export const ProductControllers = {
   createProduct,
-  getAllProduct,
+  getAllProductOrQueryAnyString,
   findProductById,
   deleteProductById,
   putProductById,
-  serchProductByAnyString,
 };
+// // search a product by any string
+// const serchProductByAnyString = async (req: Request, res: Response) => {
+//   try {
+//     const { searchTerm } = req.query;
+//     console.log({ searchTerm });
+//     const result = await ProductService.serchProductByAnyString(
+//       searchTerm as string
+//     );
+//     // result  checking
+//     if (result.length === 0) {
+//       //  response send
+//       res.status(200).json({
+//         success: true,
+//         message: `Search term '${searchTerm}' matching product not found `,
+//         data: result,
+//       });
+//     } else {
+//       //  response send
+//       res.status(200).json({
+//         success: true,
+//         message: `Products matching search term '${searchTerm}' fetched successfully!`,
+//         data: result,
+//       });
+//     }
+//   } catch (err: any) {
+//     console.log(`Serach product by any string controllers error :>- ${err}`);
+//     //  response send
+//     res.status(500).json({
+//       success: false,
+//       message: err.message || "Something went wrong!",
+//       error: err,
+//     });
+//   }
+// };

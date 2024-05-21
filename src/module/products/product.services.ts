@@ -15,10 +15,22 @@ const createProduct = async (payload: IProduct) => {
 };
 
 //get/fing all product
-const getAllProduct = async () => {
+const getAllProductOrQueryAnyString = async (searchTerm: string) => {
   try {
-    const result = await Product.find();
-    return result;
+    if (searchTerm) {
+      const result = await Product.find({
+        $or: [
+          { name: new RegExp(searchTerm, "i") },
+          { tags: new RegExp(searchTerm, "i") },
+          { category: new RegExp(searchTerm, "i") },
+          { description: new RegExp(searchTerm, "i") },
+        ],
+      });
+      return result;
+    } else {
+      const result = await Product.find();
+      return result;
+    }
   } catch (err) {
     console.log(`Get all Product service error :>- ${err}`);
     return `${err}`;
@@ -65,22 +77,26 @@ const putProductById = async (id: string, updateData: any) => {
   }
 };
 
-// search a product by any string
-const serchProductByAnyString = async (searchTerm: string) => {
-  try {
-    const result = await Product.find({ name: new RegExp(searchTerm, "i") });
-    return result;
-  } catch (err) {
-    console.log(`Serch Product by string service error :>- ${err}`);
-    return `${err}`;
-  }
-};
-
 export const ProductService = {
   createProduct,
-  getAllProduct,
+  getAllProductOrQueryAnyString,
   findProductById,
   deleteProductById,
   putProductById,
-  serchProductByAnyString,
 };
+
+// // search a product by any string
+// const serchProductByAnyString = async (searchTerm: string) => {
+//   try {
+//     const result = await Product.find({
+//       $or: [
+//         { name: new RegExp(searchTerm, "i") },
+//         { description: new RegExp(searchTerm, "i") },
+//       ],
+//     });
+//     return result;
+//   } catch (err) {
+//     console.log(`Serch Product by string service error :>- ${err}`);
+//     return `${err}`;
+//   }
+// };

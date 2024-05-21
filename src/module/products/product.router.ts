@@ -11,9 +11,11 @@ router.delete("/:productId", ProductControllers.deleteProductById);
 router.put("/:productId", ProductControllers.putProductById);
 
 // serach product by any string
-router.get("/", ProductControllers.serchProductByAnyString);
+router.get("/", ProductControllers.getAllProductOrQueryAnyString);
 
-// get/fetched all product
-router.get("/", ProductControllers.getAllProduct);
+
+// // get/fetched all product
+// router.get("/", ProductControllers.serchProductByAnyString);
+
 
 export const ProductRouter = router;
