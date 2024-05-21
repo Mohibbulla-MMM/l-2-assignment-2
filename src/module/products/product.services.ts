@@ -85,18 +85,4 @@ export const ProductService = {
   putProductById,
 };
 
-// // search a product by any string
-// const serchProductByAnyString = async (searchTerm: string) => {
-//   try {
-//     const result = await Product.find({
-//       $or: [
-//         { name: new RegExp(searchTerm, "i") },
-//         { description: new RegExp(searchTerm, "i") },
-//       ],
-//     });
-//     return result;
-//   } catch (err) {
-//     console.log(`Serch Product by string service error :>- ${err}`);
-//     return `${err}`;
-//   }
-// };
+ 
