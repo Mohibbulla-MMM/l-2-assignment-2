@@ -55,6 +55,8 @@ const getOrdersByUserEmail = async (req: Request, res: Response) => {
   try {
     // data send order services>fn
     const { email } = req.query;
+    // if(email)
+
     const result = await OrderServices.getOrdersByUserEmail(email as string);
     // response send
     res.status(200).json({

@@ -8,7 +8,7 @@ router.post("/", OrderControllers.createOrder);
 // get order by user email
 router.get("/", OrderControllers.getOrdersByUserEmail);
 
-// get all order
+// get all order 
 router.get("/", OrderControllers.getAllOrders);
 
 export const OrderRouter = router;
