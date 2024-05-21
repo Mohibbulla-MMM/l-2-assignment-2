@@ -52,7 +52,7 @@ const getAllProduct = async (req: Request, res: Response) => {
   }
 };
 
-//get/fing all product
+//get/fing by id the product
 const findProductById = async (req: Request, res: Response) => {
   try {
     const { productId } = req.params;
@@ -73,9 +73,32 @@ const findProductById = async (req: Request, res: Response) => {
     });
   }
 };
+//delete by id the product
+const deleteProductById = async (req: Request, res: Response) => {
+  try {
+    const { productId } = req.params;
+    console.log(productId)
+    const result = await ProductService.deleteProductById(productId);
+    //  response send
+    res.status(200).json({
+      success: true,
+      message: "Single Products deleted successfully!",
+      data: result,
+    });
+  } catch (err: any) {
+    console.log(`Deleted product by id controllers error :>- ${err}`);
+    //  response send
+    res.status(500).json({
+      success: false,
+      message: err.message || "Something went wrong!",
+      error: err,
+    });
+  }
+};
 
 export const ProductControllers = {
   createProduct,
   getAllProduct,
   findProductById,
+  deleteProductById,
 };

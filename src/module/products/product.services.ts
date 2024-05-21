@@ -22,7 +22,7 @@ const getAllProduct = async () => {
     return `${err}`;
   }
 };
-//get/fing all product
+//get/fing by id the product
 const findProductById = async (id: string) => {
   try {
     // console.log({id})
@@ -34,8 +34,22 @@ const findProductById = async (id: string) => {
   }
 };
 
+//delete by id the product
+const deleteProductById = async (id: string | null) => {
+  try {
+    console.log({ id });
+    const result = await Product.deleteOne({ _id: id });
+    console.log({ result });
+    return result;
+  } catch (err) {
+    console.log(`delete Product by id service error :>- ${err}`);
+    return `${err}`;
+  }
+};
+
 export const ProductService = {
   createProduct,
   getAllProduct,
   findProductById,
+  deleteProductById,
 };
