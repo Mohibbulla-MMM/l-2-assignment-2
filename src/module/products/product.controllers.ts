@@ -39,7 +39,7 @@ const getAllProduct = async (req: Request, res: Response) => {
     //  response send
     res.status(200).json({
       success: true,
-      message: "Products fetched successfully!",
+      message: "All Products fetched successfully!",
       data: result,
     });
   } catch (err: any) {
@@ -129,16 +129,26 @@ const putProductById = async (req: Request, res: Response) => {
 const serchProductByAnyString = async (req: Request, res: Response) => {
   try {
     const { searchTerm } = req.query;
-
+    console.log({ searchTerm });
     const result = await ProductService.serchProductByAnyString(
       searchTerm as string
     );
-    //  response send
-    res.status(200).json({
-      success: true,
-      message: "Single Products update/put successfully!",
-      data: result,
-    });
+    // result  checking
+    if (result.length === 0) {
+      //  response send
+      res.status(200).json({
+        success: true,
+        message: `Search term '${searchTerm}' matching product not found `,
+        data: result,
+      });
+    } else {
+      //  response send
+      res.status(200).json({
+        success: true,
+        message: `Products matching search term '${searchTerm}' fetched successfully!`,
+        data: result,
+      });
+    }
   } catch (err: any) {
     console.log(`Serach product by any string controllers error :>- ${err}`);
     //  response send
@@ -156,4 +166,5 @@ export const ProductControllers = {
   findProductById,
   deleteProductById,
   putProductById,
+  serchProductByAnyString,
 };
