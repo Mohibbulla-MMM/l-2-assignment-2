@@ -1,5 +1,7 @@
+import { string } from "zod";
 import { IProduct } from "./product.interface";
 import { Product } from "./product.module";
+import { TypePredicateKind } from "typescript";
 
 // product create/insert in to db
 const createProduct = async (payload: IProduct) => {
@@ -22,6 +24,7 @@ const getAllProduct = async () => {
     return `${err}`;
   }
 };
+
 //get/fing by id the product
 const findProductById = async (id: string) => {
   try {
@@ -47,9 +50,28 @@ const deleteProductById = async (id: string | null) => {
   }
 };
 
+// update/put by id product
+const putProductById = async (id: string, updateData: any) => {
+  try {
+    //  update data send to db
+    const result = await Product.findOneAndUpdate({ _id: id }, updateData, {
+      new: true,
+    });
+    // console.log({ result });
+    return result;
+  } catch (err) {
+    console.log(`Update/put Product by id service error :>- ${err}`);
+    return `${err}`;
+  }
+};
+
+
+
 export const ProductService = {
   createProduct,
   getAllProduct,
   findProductById,
   deleteProductById,
+  putProductById,
+ 
 };

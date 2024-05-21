@@ -1,6 +1,7 @@
 import { Request, Response } from "express";
 import { ProductService } from "./product.services";
 import { ProductZodValidation } from "./product.zod.validation";
+import { ProductUpdateZodValidation } from "./productUpdate.Zod.validation";
 
 // create product / insert product
 const createProduct = async (req: Request, res: Response) => {
@@ -73,11 +74,12 @@ const findProductById = async (req: Request, res: Response) => {
     });
   }
 };
+
 //delete by id the product
 const deleteProductById = async (req: Request, res: Response) => {
   try {
     const { productId } = req.params;
-    console.log(productId)
+    console.log(productId);
     const result = await ProductService.deleteProductById(productId);
     //  response send
     res.status(200).json({
@@ -95,10 +97,38 @@ const deleteProductById = async (req: Request, res: Response) => {
     });
   }
 };
+//put by id the product
+const putProductById = async (req: Request, res: Response) => {
+  try {
+    const { productId } = req.params;
+    const productData = req.body;
+    // console.log(productId);
+    const { error, data } = ProductUpdateZodValidation.safeParse(productData);
+    if (error) {
+      throw new Error(error.message);
+    }
+    const result = await ProductService.putProductById(productId, data);
+    //  response send
+    res.status(200).json({
+      success: true,
+      message: "Single Products update/put successfully!",
+      data: result,
+    });
+  } catch (err: any) {
+    console.log(`Update product by id controllers error :>- ${err}`);
+    //  response send
+    res.status(500).json({
+      success: false,
+      message: err.message || "Something went wrong!",
+      error: err,
+    });
+  }
+};
 
 export const ProductControllers = {
   createProduct,
   getAllProduct,
   findProductById,
   deleteProductById,
+  putProductById,
 };

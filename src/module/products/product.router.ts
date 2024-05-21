@@ -9,5 +9,7 @@ router.get("/", ProductControllers.getAllProduct);
 router.get("/:productId", ProductControllers.findProductById);
 // deleted product by id
 router.delete("/:productId", ProductControllers.deleteProductById);
+// put product by id
+router.put("/:productId", ProductControllers.putProductById);
 
 export const ProductRouter = router;
