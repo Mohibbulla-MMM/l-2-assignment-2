@@ -37,7 +37,7 @@ const getAllProduct = async (req: Request, res: Response) => {
     const result = await ProductService.getAllProduct();
     //  response send
     res.status(200).json({
-      success: false,
+      success: true,
       message: "Products fetched successfully!",
       data: result,
     });
@@ -59,7 +59,7 @@ const findProductById = async (req: Request, res: Response) => {
     const result = await ProductService.findProductById(productId);
     //  response send
     res.status(200).json({
-      success: false,
+      success: true,
       message: "Single Products fetched successfully!",
       data: result,
     });

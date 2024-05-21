@@ -25,7 +25,7 @@ const getAllProduct = async () => {
 //get/fing all product
 const findProductById = async (id: string) => {
   try {
-    console.log({id})
+    // console.log({id})
     const result = await Product.findById(id);
     return result;
   } catch (err) {
