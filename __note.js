@@ -32,19 +32,23 @@ Endpoint: /api/products/:productId
 Method: DELETE
 
 
+-----------complete
 6. Search a product
 Endpoint: /api/products?searchTerm=iphone
 Method: GET
 
 ----------------------------------------
+-----------some complete
 1.Create a New Order
 Endpoint: /api/orders
 Method: POST
 
+-----------complete
 2.Retrieve All Orders
 Endpoint: /api/orders
 Method: GET
 
+-----------complete
 3. Retrieve Orders by User Email
 Endpoint: /api/orders?email=level2@programming-hero.com
 Method: GET

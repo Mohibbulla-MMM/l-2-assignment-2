@@ -22,10 +22,15 @@ const getAllOrders = async () => {
   }
 };
 // get/find   oder by user email
-const getOrdersByUserEmail = async (email: string) => {
+const getOrdersByUserEmail = async (email: object) => {
   try {
-    const result = await Order.find({ email: email });
-    return result;
+    const result = await Order.find(email);
+    // result check
+    if (result.length == 0) {
+      return "No orders have been placed yet with this email";
+    } else {
+      return result;
+    }
   } catch (err) {
     console.log(`Get order by user email service error :>- ${err}`);
     return err;
@@ -35,5 +40,5 @@ const getOrdersByUserEmail = async (email: string) => {
 export const OrderServices = {
   createOrder,
   getAllOrders,
-  getOrdersByUserEmail
+  getOrdersByUserEmail,
 };

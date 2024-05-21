@@ -1,6 +1,7 @@
 import { Request, Response } from "express";
 import { OrderServices } from "./order.services";
 import { orderZodValidation } from "./order.zod.validation";
+import { emailZodValidation } from "./order.zod.email.validation";
 // order create
 const createOrder = async (req: Request, res: Response) => {
   try {
@@ -54,11 +55,14 @@ const getAllOrders = async (req: Request, res: Response) => {
 const getOrdersByUserEmail = async (req: Request, res: Response) => {
   try {
     // data send order services>fn
-    const { email } = req.query;
-    // if(email)
+    const email = req.query;
+    const { error, data } = emailZodValidation.safeParse(email);
+    if (error) {
+      throw new Error(error.message);
+    }
 
-    const result = await OrderServices.getOrdersByUserEmail(email as string);
-    // response send
+    const result = await OrderServices.getOrdersByUserEmail(data);
+   
     res.status(200).json({
       success: true,
       message: "Orders fetched successfully for user email!",
@@ -79,5 +83,5 @@ const getOrdersByUserEmail = async (req: Request, res: Response) => {
 export const OrderControllers = {
   createOrder,
   getAllOrders,
-  getOrdersByUserEmail
+  getOrdersByUserEmail,
 };
