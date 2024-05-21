@@ -23,7 +23,7 @@ function main() {
         yield mongoose_1.default.connect(url);
         //   server listen
         app_1.default.listen(config_1.default.port, () => {
-            console.log(`Example app listening on port ${3000}`);
+            console.log(`E-commers server is running on the port: ${config_1.default.port}`);
         });
     });
 }

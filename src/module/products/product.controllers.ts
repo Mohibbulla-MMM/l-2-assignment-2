@@ -125,6 +125,31 @@ const putProductById = async (req: Request, res: Response) => {
   }
 };
 
+// search a product by any string
+const serchProductByAnyString = async (req: Request, res: Response) => {
+  try {
+    const { searchTerm } = req.query;
+
+    const result = await ProductService.serchProductByAnyString(
+      searchTerm as string
+    );
+    //  response send
+    res.status(200).json({
+      success: true,
+      message: "Single Products update/put successfully!",
+      data: result,
+    });
+  } catch (err: any) {
+    console.log(`Serach product by any string controllers error :>- ${err}`);
+    //  response send
+    res.status(500).json({
+      success: false,
+      message: err.message || "Something went wrong!",
+      error: err,
+    });
+  }
+};
+
 export const ProductControllers = {
   createProduct,
   getAllProduct,
