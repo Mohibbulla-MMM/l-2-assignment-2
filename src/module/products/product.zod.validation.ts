@@ -1,21 +1,28 @@
 import { z } from "zod";
-// product varient object
-const productVariantsObject = z.object({
+import { errorUtil } from "zod/lib/helpers/errorUtil";
+import errorMap from "zod/lib/locales/en";
+
+// Define the Zod schema for product variants
+const productVariantsZodValidation = z.object({
   type: z
     .string()
-    .max(100)
-    .nonempty("Product variants type field is required. up to 100 characters"),
+    .max(100, "Type must be at most 100 characters")
+    .trim()
+    .nonempty("Product variants type field is required"),
   value: z
     .string()
-    .max(200)
-    .nonempty("Product variants value field is requird. up to 200 characters"),
+    .max(200, "Value must be at most 200 characters")
+    .trim()
+    .nonempty("Product variants value field is required"),
 });
-//product inventory object
-const productInventoryObject = z.object({
+
+// Define the Zod schema for product inventory
+const productInventoryZodValidation = z.object({
   quantity: z
-    .number({ required_error: "Product inventory quantity field is required" })
-    .nonnegative()
-    .int(),
+    .number({ required_error: "Quantity filed is required" })
+    .int()
+    .lte(99999999999, "quantity is very long number")
+    .nonnegative("Quantity cannot be negative"),
   inStock: z
     .boolean()
     .refine(
@@ -24,20 +31,34 @@ const productInventoryObject = z.object({
     ),
 });
 
-// main product object
-const productObject = z.object({
-  name: z.string().max(100).nonempty("Product name field is required"),
+// Define the main Zod schema for the product
+const ProductZodValidation = z.object({
+  name: z
+    .string()
+    .max(100, "Name must be at most 100 characters")
+    .nonempty("Product name field is required")
+    .trim(),
   description: z
     .string()
-    .max(1500)
-    .nonempty("Product description field is required"),
-  price: z.string().max(20).nonempty("Product price field is required"),
-  category: z.string().max(100).nonempty("Product category field is required"),
+    .max(1500, "Description must be at most 1500 characters")
+    .nonempty("Product description field is required")
+    .trim(),
+  price: z
+    .number({ required_error: "product price filed is required" })
+    .int()
+    .lte(99999999999, "Price is very long number"),
+  category: z
+    .string()
+    .max(200, "Category must be at most 200 characters")
+    .nonempty("Product category field is required")
+    .trim(),
   tags: z
-    .array(z.string().nonempty("Tags must contain non-empty strings"))
+    .array(z.string().nonempty("Tags must contain non-empty strings").trim())
     .nonempty("Product tags field is required"),
   variants: z
-    .array(productVariantsObject)
+    .array(productVariantsZodValidation)
     .nonempty("Product variants field is required"),
-  inventory: productInventoryObject,
+  inventory: productInventoryZodValidation,
 });
+
+export { ProductZodValidation };

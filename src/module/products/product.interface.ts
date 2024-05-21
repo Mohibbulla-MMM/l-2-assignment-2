@@ -1,19 +1,21 @@
-export type TProductVariants = {
+// product.interface.ts
+
+export interface IProductVariants {
   type: string;
   value: string;
-};
+}
 
-export type TProductInventory = {
+export interface IProductInventory {
   quantity: number;
   inStock: boolean;
-};
+}
 
-export type TProduct = {
+export interface IProduct {
   name: string;
   description: string;
   price: number;
   category: string;
   tags: string[];
-  variants: [TProductVariants];
-  inventory: TProductInventory;
-};
+  variants: IProductVariants[];
+  inventory: IProductInventory;
+}

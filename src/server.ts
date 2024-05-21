@@ -9,7 +9,7 @@ async function main() {
   await mongoose.connect(url);
   //   server listen
   app.listen(config.port, () => {
-    console.log(`Example app listening on port ${3000}`);
+    console.log(`E-commers server is running on the port: ${config.port}`);
   });
 }
 main();
