@@ -1,3 +1,4 @@
+import { Model } from "mongoose";
 
 export type TOrder = {
   email: string;
@@ -5,3 +6,6 @@ export type TOrder = {
   price: number;
   quantity: number;
 };
+export interface OrderModel extends Model<TOrder> {
+  findByOrderProductId(payload: object): Promise<string | null>;
+}

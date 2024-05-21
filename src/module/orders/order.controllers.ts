@@ -37,7 +37,7 @@ const getAllOrders = async (req: Request, res: Response) => {
     // response send
     res.status(200).json({
       success: true,
-      message: "All Orders fetched successfully",
+      message: "Orders fetched successfully!",
       data: result,
     });
     // TODO order not found if logic and send not found message

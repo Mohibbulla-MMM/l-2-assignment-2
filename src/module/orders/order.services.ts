@@ -1,10 +1,20 @@
-import { TOrder } from "./order.interface";
 import { Order } from "./order.module";
+import { TOrder } from "./order.interface";
+import mongoose from "mongoose";
 
 // order create
 const createOrder = async (payload: TOrder) => {
   try {
-    const result = await Order.create(payload);
+    const order = new Order(payload);
+    if (mongoose.Types.ObjectId.isValid(payload.productId)) {
+      const data = await Order.findByOrderProductId(payload);
+      // return data;
+    } else {
+      return "product is not valid id";
+    }
+
+    // result send
+    const result = await order.save();
     return result;
   } catch (err) {
     console.log(`Order create serviece error :>- ${err}`);
@@ -42,3 +52,18 @@ export const OrderServices = {
   getAllOrders,
   getOrdersByUserEmail,
 };
+
+// if (mongoose.Types.ObjectId.isValid(payload.productId)) {
+//   const data = await Order.findIdByProduct(payload.productId);
+//   // console.log({ data });
+//   if (data) {
+//     // const productInventoryNo = data.inventory.quantity
+//     // const productInventoryIsStock = data.inventory.quantity
+//     // console.log("1", data);
+//   } else {
+//     // console.log("2", data);
+//     return "There are no products with this ID";
+//   }
+// } else {
+//   return "product id not valid";
+// }
