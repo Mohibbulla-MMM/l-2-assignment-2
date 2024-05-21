@@ -7,5 +7,5 @@ export type TOrder = {
   quantity: number;
 };
 export interface OrderModel extends Model<TOrder> {
-  findByOrderProductId(payload: object): Promise<string | null>;
+  findByOrderProductId(payload: object): Promise<string | null | boolean>;
 }

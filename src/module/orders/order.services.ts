@@ -8,14 +8,19 @@ const createOrder = async (payload: TOrder) => {
     const order = new Order(payload);
     if (mongoose.Types.ObjectId.isValid(payload.productId)) {
       const data = await Order.findByOrderProductId(payload);
-      // return data;
+      console.log(data);
+      // if()
+      if (data === true) {
+        const result = await order.save();
+        return result;
+      } else {
+        return data;
+      }
     } else {
-      return "product is not valid id";
+      return "product id is not valid";
     }
 
     // result send
-    const result = await order.save();
-    return result;
   } catch (err) {
     console.log(`Order create serviece error :>- ${err}`);
     return err;
