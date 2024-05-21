@@ -121,6 +121,7 @@ const deleteProductById = async (req: Request, res: Response) => {
     });
   }
 };
+
 //put by id the product
 const putProductById = async (req: Request, res: Response) => {
   try {

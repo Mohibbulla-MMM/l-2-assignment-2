@@ -40,7 +40,6 @@ const getAllOrders = async (req: Request, res: Response) => {
       message: "Orders fetched successfully!",
       data: result,
     });
-    // TODO order not found if logic and send not found message
   } catch (err: any) {
     console.log(`find Order controllers error :>- ${err}`);
     // error send
@@ -62,13 +61,12 @@ const getOrdersByUserEmail = async (req: Request, res: Response) => {
     }
 
     const result = await OrderServices.getOrdersByUserEmail(data);
-   
+
     res.status(200).json({
       success: true,
       message: "Orders fetched successfully for user email!",
       data: result,
     });
-    // TODO order not found if logic and send not found message
   } catch (err: any) {
     console.log(`order get by user email controllers error :>- ${err}`);
     // error send
