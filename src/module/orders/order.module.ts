@@ -1,8 +1,3 @@
-// email: string;
-// productId: string;
-// price: number;
-// quantity: number;
-
 import { Schema, model } from "mongoose";
 import { TOrder } from "./order.interface";
 
