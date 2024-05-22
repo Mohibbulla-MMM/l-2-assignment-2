@@ -17,7 +17,7 @@ app.use("/api/products", product_router_1.ProductRouter);
 //order router
 app.use("/api/orders", order_router_1.OrderRouter);
 app.get("/", (req, res) => {
-    res.send("Hello World!");
+    res.send("Ecommers assignment-2 server ");
 });
 // wrong all api error
 app.all("*", (req, res) => {
