@@ -41,43 +41,38 @@ const createOrder = (req, res) => __awaiter(void 0, void 0, void 0, function* ()
         });
     }
 });
-// get all order
-const getAllOrders = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
+//
+const getAllOrdersOrUserEmail = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     try {
-        // data send order services>fn
-        const result = yield order_services_1.OrderServices.getAllOrders();
-        // response send
-        res.status(200).json({
-            success: true,
-            message: "Orders fetched successfully!",
-            data: result,
-        });
-    }
-    catch (err) {
-        console.log(`find Order controllers error :>- ${err}`);
-        // error send
-        res.status(500).json({
-            success: false,
-            message: err.message || "Something went wrong!",
-            data: err,
-        });
-    }
-});
-// get all order
-const getOrdersByUserEmail = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
-    try {
+        // get orders by user email  -------------------------------------------
         // data send order services>fn
         const email = req.query;
-        const { error, data } = order_zod_email_validation_1.emailZodValidation.safeParse(email);
-        if (error) {
-            throw new Error(error.message);
+        // console.log(email, "-----------------------------------");
+        if ("email" in email) {
+            // console.log("message 1");
+            const { error, data } = order_zod_email_validation_1.emailZodValidation.safeParse(email);
+            if (error) {
+                throw new Error(error.message);
+            }
+            const result = yield order_services_1.OrderServices.getOrdersByUserEmail(data);
+            res.status(200).json({
+                success: true,
+                message: "Orders fetched successfully for user email!",
+                data: result,
+            });
         }
-        const result = yield order_services_1.OrderServices.getOrdersByUserEmail(data);
-        res.status(200).json({
-            success: true,
-            message: "Orders fetched successfully for user email!",
-            data: result,
-        });
+        else {
+            // console.log("message 2");
+            // get all orders -------------------------------------------
+            // data send order services>fn
+            const result = yield order_services_1.OrderServices.getAllOrders();
+            // response send
+            res.status(200).json({
+                success: true,
+                message: "Orders fetched successfully!",
+                data: result,
+            });
+        }
     }
     catch (err) {
         console.log(`order get by user email controllers error :>- ${err}`);
@@ -91,6 +86,5 @@ const getOrdersByUserEmail = (req, res) => __awaiter(void 0, void 0, void 0, fun
 });
 exports.OrderControllers = {
     createOrder,
-    getAllOrders,
-    getOrdersByUserEmail,
+    getAllOrdersOrUserEmail,
 };

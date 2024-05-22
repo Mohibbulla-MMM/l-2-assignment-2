@@ -9,8 +9,8 @@ const order_controllers_1 = require("./order.controllers");
 const router = express_1.default.Router();
 // create order
 router.post("/", order_controllers_1.OrderControllers.createOrder);
-// get order by user email
-router.get("/", order_controllers_1.OrderControllers.getOrdersByUserEmail);
-// get all order 
-router.get("/", order_controllers_1.OrderControllers.getAllOrders);
+// 
+// router.get("/", OrderControllers.getOrdersByUserEmail);
+// get all order and get order by user email
+router.get("/", order_controllers_1.OrderControllers.getAllOrdersOrUserEmail);
 exports.OrderRouter = router;
