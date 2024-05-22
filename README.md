@@ -6,7 +6,7 @@ This is an Express.js API built with TypeScript and MongoDB for managing product
 
 ## Product Management
 
-1. ### Create a New Product
+### 1. Create a New Product
 
 - **Endpoint `https://assignment-2-nu-one.vercel.app/api/products`**
 - **Method: `POST`**
@@ -35,28 +35,28 @@ This is an Express.js API built with TypeScript and MongoDB for managing product
 }
 ```
 
-2. Retrieve a List of All Products
+### 2. Retrieve a List of All Products
 
 - **Endpoint `https://assignment-2-nu-one.vercel.app/api/products`**
 - **Method: `GET`**
 
-3. Retrieve a Specific Product by ID
+### 3. Retrieve a Specific Product by ID
 
 - **Endpoint `https://assignment-2-nu-one.vercel.app/api/products/:productId`**
 - **Method: `GET`**
 
-4. Update Product Information
+### 4. Update Product Information
 
 - **Endpoint `https://assignment-2-nu-one.vercel.app/api/products/:productId`**
 - **Method: `GET`**
 - **Sample Request Body**
 
-5. Delete a Product
+### 5. Delete a Product
 
 - **Endpoint `https://assignment-2-nu-one.vercel.app/api/products/:productId`**
 - **Method: `DELETE`**
 
-6. Search a product
+### 6. Search a product
 
 - **Endpoint `https://assignment-2-nu-one.vercel.app/api/products?searchTerm=iphone`**
 - **Method: `GET`**
@@ -66,7 +66,7 @@ This is an Express.js API built with TypeScript and MongoDB for managing product
 
 ## Order Management
 
-1. Create a New Order
+### 1. Create a New Order
 
 - **Endpoint `https://assignment-2-nu-one.vercel.app/api/orders`**
 - **Method: `POST`**
@@ -81,12 +81,12 @@ This is an Express.js API built with TypeScript and MongoDB for managing product
 }
 ```
 
-2. Retrieve All Orders
+### 2. Retrieve All Orders
 
 - **Endpoint `https://assignment-2-nu-one.vercel.app/api/orders`**
 - **Method: `GET`**
 
-3. Retrieve Orders by User Email
+### 3. Retrieve Orders by User Email
 
 - **Endpoint `https://assignment-2-nu-one.vercel.app/api/orders?email=level2@programming-hero.com`**
 - **Method: `GET`**
