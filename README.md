@@ -97,6 +97,8 @@ This is an Express.js API built with TypeScript and MongoDB for managing product
 - In some cases custom error messages are provided. Try sending a message to match the error
 - `ZOD` validation error messages are all custom made or default
 
-<center>
-feel free to contact me `rockychain1020@gmail.com`
- </center>
+<hr>
+
+<p style='text-align:center'>
+     <i> feel free to contact me `rockychain1020@gmail.com`</i>
+</p>
