@@ -23,10 +23,23 @@ const createProduct = (payload) => __awaiter(void 0, void 0, void 0, function* (
     }
 });
 //get/fing all product
-const getAllProduct = () => __awaiter(void 0, void 0, void 0, function* () {
+const getAllProductOrQueryAnyString = (searchTerm) => __awaiter(void 0, void 0, void 0, function* () {
     try {
-        const result = yield product_module_1.Product.find();
-        return result;
+        if (searchTerm) {
+            const result = yield product_module_1.Product.find({
+                $or: [
+                    { name: new RegExp(searchTerm, "i") },
+                    { tags: new RegExp(searchTerm, "i") },
+                    { category: new RegExp(searchTerm, "i") },
+                    { description: new RegExp(searchTerm, "i") },
+                ],
+            });
+            return result;
+        }
+        else {
+            const result = yield product_module_1.Product.find();
+            return result;
+        }
     }
     catch (err) {
         console.log(`Get all Product service error :>- ${err}`);
@@ -73,22 +86,10 @@ const putProductById = (id, updateData) => __awaiter(void 0, void 0, void 0, fun
         return `${err}`;
     }
 });
-// search a product by any string
-const serchProductByAnyString = (searchTerm) => __awaiter(void 0, void 0, void 0, function* () {
-    try {
-        const result = yield product_module_1.Product.find({ name: new RegExp(searchTerm, "i") });
-        return result;
-    }
-    catch (err) {
-        console.log(`Serch Product by string service error :>- ${err}`);
-        return `${err}`;
-    }
-});
 exports.ProductService = {
     createProduct,
-    getAllProduct,
+    getAllProductOrQueryAnyString,
     findProductById,
     deleteProductById,
     putProductById,
-    serchProductByAnyString,
 };

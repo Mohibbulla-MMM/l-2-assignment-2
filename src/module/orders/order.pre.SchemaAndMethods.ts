@@ -71,7 +71,7 @@ orderSchema.post("save", async function (doc, next) {
     const quantity = productData.inventory.quantity - doc.quantity;
     const inStock = productData.inventory.inStock;
     const stock = inStock ? (quantity == 0 ? false : true) : false;
-    const product = await Product.findByIdAndUpdate(
+     await Product.findByIdAndUpdate(
       id,
       {
         "inventory.quantity": quantity,

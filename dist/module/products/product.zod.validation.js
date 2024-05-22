@@ -41,6 +41,7 @@ const ProductZodValidation = zod_1.z.object({
     price: zod_1.z
         .number({ required_error: "product price filed is required" })
         .int()
+        .nonnegative()
         .lte(99999999999, "Price is very long number"),
     category: zod_1.z
         .string()

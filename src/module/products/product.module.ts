@@ -62,7 +62,7 @@ const productSchema = new Schema<IProduct>({
   tags: {
     type: [String],
     validate: {
-      validator: function (V: String[]) {
+      validator: function (V: string[]) {
         if (Array.isArray(V) && V?.length > 0) {
           return V;
         } else {

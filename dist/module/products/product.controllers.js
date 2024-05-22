@@ -43,15 +43,38 @@ const createProduct = (req, res) => __awaiter(void 0, void 0, void 0, function* 
     }
 });
 // get/fetched all  product
-const getAllProduct = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
+const getAllProductOrQueryAnyString = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     try {
-        const result = yield product_services_1.ProductService.getAllProduct();
-        //  response send
-        res.status(200).json({
-            success: true,
-            message: "Products fetched successfully!",
-            data: result,
-        });
+        const { searchTerm } = req.query;
+        const result = yield product_services_1.ProductService.getAllProductOrQueryAnyString(searchTerm);
+        // search term check
+        if (searchTerm) {
+            // result check
+            if (result.length === 0) {
+                //  response send
+                res.status(200).json({
+                    success: true,
+                    message: `Search term '${searchTerm}' matching product not found `,
+                    data: result,
+                });
+            }
+            else {
+                //  response send
+                res.status(200).json({
+                    success: true,
+                    message: `Products matching search term '${searchTerm}' fetched successfully!`,
+                    data: result,
+                });
+            }
+        }
+        else {
+            //  response send
+            res.status(200).json({
+                success: true,
+                message: "Products fetched successfully!",
+                data: result,
+            });
+        }
     }
     catch (err) {
         console.log(`Get/fetched product controllers error :>- ${err}`);
@@ -71,7 +94,7 @@ const findProductById = (req, res) => __awaiter(void 0, void 0, void 0, function
         //  response send
         res.status(200).json({
             success: true,
-            message: "Single Products fetched successfully!",
+            message: "Product fetched successfully!",
             data: result,
         });
     }
@@ -94,7 +117,7 @@ const deleteProductById = (req, res) => __awaiter(void 0, void 0, void 0, functi
         //  response send
         res.status(200).json({
             success: true,
-            message: "Single Products deleted successfully!",
+            message: "Product deleted successfully!",
             data: result,
         });
     }
@@ -122,7 +145,7 @@ const putProductById = (req, res) => __awaiter(void 0, void 0, void 0, function*
         //  response send
         res.status(200).json({
             success: true,
-            message: "Single Products update/put successfully!",
+            message: "Product updated successfully!",
             data: result,
         });
     }
@@ -136,31 +159,9 @@ const putProductById = (req, res) => __awaiter(void 0, void 0, void 0, function*
         });
     }
 });
-// search a product by any string
-const serchProductByAnyString = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
-    try {
-        const { searchTerm } = req.query;
-        const result = yield product_services_1.ProductService.serchProductByAnyString(searchTerm);
-        //  response send
-        res.status(200).json({
-            success: true,
-            message: "Single Products update/put successfully!",
-            data: result,
-        });
-    }
-    catch (err) {
-        console.log(`Serach product by any string controllers error :>- ${err}`);
-        //  response send
-        res.status(500).json({
-            success: false,
-            message: err.message || "Something went wrong!",
-            error: err,
-        });
-    }
-});
 exports.ProductControllers = {
     createProduct,
-    getAllProduct,
+    getAllProductOrQueryAnyString,
     findProductById,
     deleteProductById,
     putProductById,

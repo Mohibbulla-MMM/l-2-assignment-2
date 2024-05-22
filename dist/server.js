@@ -17,14 +17,19 @@ const mongoose_1 = __importDefault(require("mongoose"));
 const config_1 = __importDefault(require("./config"));
 function main() {
     return __awaiter(this, void 0, void 0, function* () {
-        // mongodb url form config file
-        const url = config_1.default.db_url;
-        //   mongoose connet to mongodb
-        yield mongoose_1.default.connect(url);
-        //   server listen
-        app_1.default.listen(config_1.default.port, () => {
-            console.log(`E-commers server is running on the port: ${config_1.default.port}`);
-        });
+        try {
+            // mongodb url form config file
+            const url = config_1.default.db_url;
+            //   mongoose connet to mongodb
+            yield mongoose_1.default.connect(url);
+            //   server listen
+            app_1.default.listen(config_1.default.port, () => {
+                console.log(`E-commers server is running on the port: ${config_1.default.port}`);
+            });
+        }
+        catch (err) {
+            console.log(err);
+        }
     });
 }
 main();

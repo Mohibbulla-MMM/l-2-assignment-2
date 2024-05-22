@@ -1,8 +1,6 @@
-import { string } from "zod";
 import { IProduct } from "./product.interface";
 import { Product } from "./product.module";
-import { TypePredicateKind } from "typescript";
-
+ 
 // product create/insert in to db
 const createProduct = async (payload: IProduct) => {
   try {
